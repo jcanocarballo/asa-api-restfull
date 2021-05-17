@@ -6,10 +6,10 @@ services:
     environment: 
       - PORT=9797
       - SECRET_JWT_SEED=a2045fb2-2c67-4dbc-b68b-895cbb8d2258
-      - POSTGRES_HOST=ec2-100-25-217-12.compute-1.amazonaws.com
-      - POSTGRES_DATABASE=asa_db
-      - POSTGRES_USERNAME=postgres
-      - POSTGRES_PASSWORD=dev
+      - POSTGRES_HOST=
+      - POSTGRES_DATABASE=
+      - POSTGRES_USERNAME=
+      - POSTGRES_PASSWORD=
       - POSTGRES_PORT=5432
     ports: 
       - "9797:9797" 

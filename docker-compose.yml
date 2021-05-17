@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  api:
+    build: .
+    depends_on:
+      - mongo
+    environment: 
+      - PORT=9797
+      - SECRET_JWT_SEED=a2045fb2-2c67-4dbc-b68b-895cbb8d2258
+    ports: 
+      - "9797:9797"
+
+  mongo:
+    image: mongo   

@@ -1,4 +1,4 @@
-FROM node:lts-alpine3.13
+FROM node
 WORKDIR /var/www
 COPY . /var/www
 RUN npm install

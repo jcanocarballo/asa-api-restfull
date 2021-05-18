@@ -22,7 +22,7 @@ const loginUsuario = async (req, res = response ) => {
     const validPassword = bcrypt.compareSync( password, usuario.password );
     
     // Generar JWT
-    const token = await generarJWT( usuario.uuid, usuario.name, usuario.email );
+    const token = await generarJWT( usuario.id, usuario.name, usuario.email );
     
     if ( !validPassword ) {
       return res.status(400).json({
@@ -33,7 +33,7 @@ const loginUsuario = async (req, res = response ) => {
     
     return res.status(200).json({
       ok: true,
-      uuid: usuario.uuid,
+      id: usuario.id,
       name: usuario.name,
       email: usuario.email,
       token
@@ -70,12 +70,12 @@ const crearUsuario = async (req, res = response ) => {
     await newUsuario(usuario);
 
     // Generar JWT
-    const token = await generarJWT( usuario.uuid, usuario.name, usuario.email );
+    const token = await generarJWT( usuario.id, usuario.name, usuario.email );
   
     return res.status(201).json({
       ok: true,
       msg: 'Usuario creado con exito.',
-      uuid: usuario._id,
+      id: usuario.id,
       name: usuario.name,
       email: usuario.email,
       token
@@ -90,13 +90,13 @@ const crearUsuario = async (req, res = response ) => {
 }
 
 const renewToken = async (req, res = response ) => {
-  const { uid, name, email } = req;
+  const { id, name, email } = req;
   // Generar JWT
-  const token = await generarJWT( uid, name, email );
+  const token = await generarJWT( id, name, email );
   
   return res.json({
       ok: true,
-      uuid, 
+      id, 
       name, 
       email,
       token
@@ -105,11 +105,11 @@ const renewToken = async (req, res = response ) => {
 
 const validarToken = async (req, res = response ) => {
     
-  const { uid, name, email } = req;
+  const { id, name, email } = req;
   
   return res.json({
       ok: true,
-      uuid, 
+      id, 
       name, 
       email
   })

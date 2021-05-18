@@ -10,7 +10,7 @@ const findByEmail = async function (email) {
       client = new Client(dbConfig);
       await client.connect();
       let query = "select"
-      + " name, email, password, uuid"
+      + " name, email, password, id"
       + " from usuarios where email = $1";
       let params = [];
       params.push(email);

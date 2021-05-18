@@ -1,6 +1,7 @@
 const { response } = require('express');
 const logger = require('../utils/logger');
-const { listProductos, newProducto, updateProducto, deleteProducto } = require('../sql/products/products');
+
+const { listProductos, newProducto, findById, findByIdAndUpdate, deleteProducto } = require('../sql/products/products');
 const getProductos = async( req, res = response ) => {
 
   const productos = await listProductos();
@@ -15,14 +16,14 @@ const crearProducto = async ( req, res = response ) => {
   
   let producto =  req.body ;
   try {
-    producto.uuid = req.uuid;        
-    const productoGuardado = await newProducto(producto);
+    producto.userId = req.id;       
+    await newProducto(producto);
     return res.json({
       ok: true,
-      producto: productoGuardado
+      msg: 'Registro exitoso'
     });
   } catch (error) {
-    console.log(error)
+    logger.info(error)
     return res.status(500).json({
       ok: false,
       msg: 'Hable con el administrador'
@@ -34,33 +35,32 @@ const crearProducto = async ( req, res = response ) => {
 const actualizarProducto = async( req, res = response ) => {
     
   const productoId = req.params.id;
-  const uid = req.uid;
+  const id = req.id;
   try {
-    const producto = await Producto.findById( productoId );
+    const producto = await findById( productoId );
     if ( !producto ) {
       return res.status(404).json({
         ok: false,
         msg: 'Producto no existe por ese id'
       });
     }
-    if ( producto.user.toString() !== uid ) {
-      return res.status(401).json({
+    const nuevoProducto = {
+      ...req.body
+    }
+    const rowCount = await findByIdAndUpdate( productoId, nuevoProducto);
+    if(rowCount <= 0){
+      return res.status(301).json({
         ok: false,
-        msg: 'No tiene privilegio de editar este producto'
+        msg: 'Hable con el administrador'
       });
     }
-    const nuevoProducto = {
-      ...req.body,
-      user: uid
-    }
-    const productoActualizado = await Producto.findByIdAndUpdate( productoId, nuevoProducto, { new: true } );
     return res.json({
       ok: true,
-      producto: productoActualizado
+      msg: "El registro fue actualizado con exito."
     });
     
   } catch (error) {
-    console.log(error);
+    logger.info(error);
     return res.status(500).json({
       ok: false,
       msg: 'Hable con el administrador'
@@ -71,7 +71,7 @@ const actualizarProducto = async( req, res = response ) => {
 const eliminarProducto = async( req, res = response ) => {
 
   const productoId = req.params.id;
-  const uid = req.uid;
+  const id = req.id;
   try {
     const producto = await Producto.findById( productoId );
     if ( !producto ) {
@@ -80,7 +80,7 @@ const eliminarProducto = async( req, res = response ) => {
         msg: 'Producto no existe por ese id'
       });
     }
-    if ( producto.user.toString() !== uid ) {
+    if ( producto.user.toString() !== id ) {
       return res.status(401).json({
         ok: false,
         msg: 'No tiene privilegio de eliminar este producto'
@@ -89,7 +89,7 @@ const eliminarProducto = async( req, res = response ) => {
     await Producto.findByIdAndDelete( productoId );
     return res.json({ ok: true });
   } catch (error) {
-    console.log(error);
+    logger.info(error);
     return res.status(500).json({
       ok: false,
       msg: 'Hable con el administrador'

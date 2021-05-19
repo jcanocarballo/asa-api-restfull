@@ -12,7 +12,7 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host": "https://asa-api-restfull.herokuapp.com/",
+  "host": "https://asa-api-restfull.herokuapp.com",
   "basePath": "/api",
   "schemes": ["http", "https"],
   "paths": {

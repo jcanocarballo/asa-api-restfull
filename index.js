@@ -42,7 +42,8 @@ app.use('/auth/login', express.static('public'));
 app.use('/api/auth', require('./routes/auth'));
 //TODO: productos
 app.use('/api/productos', require('./routes/productos'));
-
+//TODO: categorias
+app.use('/api/categorias', require('./routes/categorias'));
 //Escuchar peticiones
 app.listen(PORT, () => {
   logger.info(`Servidor ejecutandose en en el puerto: ${PORT}`);

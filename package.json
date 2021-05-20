@@ -1,5 +1,5 @@
 {
-  "name": "asa-api-restfull",
+  "name": "msa-api-restfull",
   "version": "1.0.0",
   "description": "Backend para la aplicación ASA",
   "main": "index.js",

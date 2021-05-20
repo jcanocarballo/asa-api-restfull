@@ -247,7 +247,7 @@
       },
       "delete": {
         "tags": ["Categorias"],
-        "summary": "Delete una categoria",
+        "summary": "Elimina una categoria",
         "description": "",
         "produces": ["application/json"],
         "parameters": [
@@ -417,7 +417,7 @@
       },
       "delete": {
         "tags": ["Marcas"],
-        "summary": "Delete una marca",
+        "summary": "Elimina una marca",
         "description": "",
         "produces": ["application/json"],
         "parameters": [
@@ -426,6 +426,176 @@
             "in": "path",
             "type": "integer",
             "description": "Marca Id",
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "x-token",
+            "description": "Token de authenticación",
+            "required": true,
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MDk4YWI5NzMyMTQyZTA3ZjA2NjU0YjgiLCJuYW1lIjoiSnVsaWFuIENhbm8iLCJlbWFpbCI6ImpjYW5vY0BnbWFpbC5jb20iLCJpYXQiOjE2MjA2NDg2MDEsImV4cCI6MTYyMDY1NTgwMX0.zBMjzcy04a5hJD71eI6FymdAQ8olBgU7V6uX78Mzw-o"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties":{
+                "ok":{
+                  "type":"boolean",
+                  "example":true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/proveedores": {
+      "get": {
+        "tags": ["Proveedores"],
+        "summary": "Recupera lista de proveedores",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-token",
+            "description": "Token de authenticación",
+            "required": true,
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MDk4YWI5NzMyMTQyZTA3ZjA2NjU0YjgiLCJuYW1lIjoiSnVsaWFuIENhbm8iLCJlbWFpbCI6ImpjYW5vY0BnbWFpbC5jb20iLCJpYXQiOjE2MjA2NDg2MDEsImV4cCI6MTYyMDY1NTgwMX0.zBMjzcy04a5hJD71eI6FymdAQ8olBgU7V6uX78Mzw-o"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa.",
+            "schema": {
+              "$ref": "#/definitions/listaProveedor"
+            }
+          },
+          "400": {
+            "description": "Invalid tag value"
+          }
+        }
+      },
+      "post":{
+        "tags": ["Proveedores"],
+        "summary": "Registra nuevo provedor",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [          
+          {
+            "in": "header",
+            "name": "x-token",
+            "description": "Token de authenticación",
+            "required": true,
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MDk4YWI5NzMyMTQyZTA3ZjA2NjU0YjgiLCJuYW1lIjoiSnVsaWFuIENhbm8iLCJlbWFpbCI6ImpjYW5vY0BnbWFpbC5jb20iLCJpYXQiOjE2MjA2NDg2MDEsImV4cCI6MTYyMDY1NTgwMX0.zBMjzcy04a5hJD71eI6FymdAQ8olBgU7V6uX78Mzw-o"
+          },
+          {
+            "in": "body",
+            "name": "Proveedor",
+            "description": "Objeto de proveedor",
+            "required": true,
+            "schema": {
+                "$ref": "#/definitions/Proveedor"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa.",
+            "schema": {
+              "type": "object",
+              "properties":{
+                "ok":{
+                  "type":"boolean",
+                  "example":true
+                },
+                "msg": {
+                  "type":"string",
+                  "example":"Registro exitoso"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid tag value"
+          }
+        }
+      }      
+    },
+    "/proveedores/{id}":{
+      "put": {
+        "tags": ["Proveedores"],
+        "summary": "Actualizar un proveedor",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "description": "Proveedor Id",
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "x-token",
+            "description": "Token de authenticación",
+            "required": true,
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MDk4YWI5NzMyMTQyZTA3ZjA2NjU0YjgiLCJuYW1lIjoiSnVsaWFuIENhbm8iLCJlbWFpbCI6ImpjYW5vY0BnbWFpbC5jb20iLCJpYXQiOjE2MjA2NDg2MDEsImV4cCI6MTYyMDY1NTgwMX0.zBMjzcy04a5hJD71eI6FymdAQ8olBgU7V6uX78Mzw-o"
+          },
+          {
+            "in": "body",
+            "name": "Proveedor",
+            "description": "Objeto de proveedor",
+            "required": true,
+            "schema": {
+                "$ref": "#/definitions/Proveedor"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties":{
+                "ok":{
+                  "type":"boolean",
+                  "example":true
+                },
+                "msg": {
+                  "type":"string",
+                  "example":"El registro fue actualizado con exito."
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid tag value"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Proveedores"],
+        "summary": "Elimina un proveedor",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "description": "Proveedor Id",
             "required": true
           },
           {
@@ -584,6 +754,66 @@
         "descripcion": {
           "type":"string",
           "example": "Auto partes y refacciones eléctricas"
+        }
+      }
+    },
+    "listaProveedor": {
+      "type": "object",
+      "properties":{
+        "ok":{
+          "type": "boolean",
+          "example": true
+        },
+        "proveedores": {
+          "type":"array",
+          "items":{
+            "$ref": "#/definitions/Proveedor"
+          }
+        }
+      }
+    },
+    "Proveedor":{
+      "type":"object",
+      "properties":{
+        "id":{
+          "type":"integer",
+          "example": 1
+        },
+        "nombre_clave":{
+          "type":"string",
+          "example": "PROV-GRAL"
+        },
+        "nombre":{
+          "type": "string",
+          "example": "Proveedor general"
+        },
+        "descripcion": {
+          "type":"string",
+          "example": "Proveedor general de refacciones y autopartes"
+        },
+        "razon_social": {
+          "type":"string",
+          "example": "Proveedor general  S.A de C.V"
+        },
+        "rfc": {
+          "type":"string",
+          "example": "PG123456789"
+        },
+        "domicilio": {
+          "type":"string",
+          "example": "C. 30 #145B x 18 y 20"
+        },
+        "colonia": {
+          "type":"string",
+          "example": "Los pinos"
+        },
+        "municipio": {
+          "type":"string",
+          "example": "Merida"
+        },
+        "estado": {
+          "type":"string",
+          "example": "Yucatan"
         }
       }
     },

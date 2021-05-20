@@ -48,6 +48,8 @@ app.use('/api/productos', require('./routes/productos'));
 app.use('/api/categorias', require('./routes/categorias'));
 //TODO: marcas
 app.use('/api/marcas', require('./routes/marcas'));
+//TODO: proveedores
+app.use('/api/proveedores', require('./routes/proveedores'));
 //DOCS
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 //Escuchar peticiones

@@ -46,6 +46,8 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/productos', require('./routes/productos'));
 //TODO: categorias
 app.use('/api/categorias', require('./routes/categorias'));
+//TODO: marcas
+app.use('/api/marcas', require('./routes/marcas'));
 //DOCS
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 //Escuchar peticiones

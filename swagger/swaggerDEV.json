@@ -235,7 +235,7 @@
                 },
                 "msg": {
                   "type":"string",
-                  "example":"Registro exitoso"
+                  "example":"El registro fue actualizado con exito."
                 }
               }
             }
@@ -271,9 +271,182 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Usuario"
+              "type": "object",
+              "properties":{
+                "ok":{
+                  "type":"boolean",
+                  "example":true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/marcas": {
+      "get": {
+        "tags": ["Marcas"],
+        "summary": "Recupera lista de marcas",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-token",
+            "description": "Token de authenticación",
+            "required": true,
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MDk4YWI5NzMyMTQyZTA3ZjA2NjU0YjgiLCJuYW1lIjoiSnVsaWFuIENhbm8iLCJlbWFpbCI6ImpjYW5vY0BnbWFpbC5jb20iLCJpYXQiOjE2MjA2NDg2MDEsImV4cCI6MTYyMDY1NTgwMX0.zBMjzcy04a5hJD71eI6FymdAQ8olBgU7V6uX78Mzw-o"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa.",
+            "schema": {
+              "$ref": "#/definitions/listaMarca"
+            }
+          },
+          "400": {
+            "description": "Invalid tag value"
+          }
+        }
+      },
+      "post":{
+        "tags": ["Marcas"],
+        "summary": "Registra marca",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [          
+          {
+            "in": "header",
+            "name": "x-token",
+            "description": "Token de authenticación",
+            "required": true,
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MDk4YWI5NzMyMTQyZTA3ZjA2NjU0YjgiLCJuYW1lIjoiSnVsaWFuIENhbm8iLCJlbWFpbCI6ImpjYW5vY0BnbWFpbC5jb20iLCJpYXQiOjE2MjA2NDg2MDEsImV4cCI6MTYyMDY1NTgwMX0.zBMjzcy04a5hJD71eI6FymdAQ8olBgU7V6uX78Mzw-o"
+          },
+          {
+            "in": "body",
+            "name": "Marca",
+            "description": "Objeto de marca",
+            "required": true,
+            "schema": {
+                "$ref": "#/definitions/Marca"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa.",
+            "schema": {
+              "type": "object",
+              "properties":{
+                "ok":{
+                  "type":"boolean",
+                  "example":true
+                },
+                "msg": {
+                  "type":"string",
+                  "example":"Registro exitoso"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid tag value"
+          }
+        }
+      }      
+    },
+    "/marcas/{id}":{
+      "put": {
+        "tags": ["Marcas"],
+        "summary": "Actualizar una marca",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "description": "Marca Id",
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "x-token",
+            "description": "Token de authenticación",
+            "required": true,
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MDk4YWI5NzMyMTQyZTA3ZjA2NjU0YjgiLCJuYW1lIjoiSnVsaWFuIENhbm8iLCJlbWFpbCI6ImpjYW5vY0BnbWFpbC5jb20iLCJpYXQiOjE2MjA2NDg2MDEsImV4cCI6MTYyMDY1NTgwMX0.zBMjzcy04a5hJD71eI6FymdAQ8olBgU7V6uX78Mzw-o"
+          },
+          {
+            "in": "body",
+            "name": "Marca",
+            "description": "Objeto de marca",
+            "required": true,
+            "schema": {
+                "$ref": "#/definitions/Marca"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties":{
+                "ok":{
+                  "type":"boolean",
+                  "example":true
+                },
+                "msg": {
+                  "type":"string",
+                  "example":"El registro fue actualizado con exito."
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid tag value"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Marcas"],
+        "summary": "Delete una marca",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "description": "Marca Id",
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "x-token",
+            "description": "Token de authenticación",
+            "required": true,
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MDk4YWI5NzMyMTQyZTA3ZjA2NjU0YjgiLCJuYW1lIjoiSnVsaWFuIENhbm8iLCJlbWFpbCI6ImpjYW5vY0BnbWFpbC5jb20iLCJpYXQiOjE2MjA2NDg2MDEsImV4cCI6MTYyMDY1NTgwMX0.zBMjzcy04a5hJD71eI6FymdAQ8olBgU7V6uX78Mzw-o"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties":{
+                "ok":{
+                  "type":"boolean",
+                  "example":true
+                }
               }
             }
           },
@@ -375,6 +548,42 @@
         "descripcion": {
           "type":"string",
           "example": "alineacion, balanceo, montajes, etc"
+        }
+      }
+    },
+    "listaMarca": {
+      "type": "object",
+      "properties":{
+        "ok":{
+          "type": "boolean",
+          "example": true
+        },
+        "marcas": {
+          "type":"array",
+          "items":{
+            "$ref": "#/definitions/Marca"
+          }
+        }
+      }
+    },
+    "Marca":{
+      "type":"object",
+      "properties":{
+        "id":{
+          "type":"integer",
+          "example": 1
+        },
+        "nombre_clave_marca":{
+          "type":"string",
+          "example": "BOSCH"
+        },
+        "nombre_completo":{
+          "type": "string",
+          "example": "BOSCH"
+        },
+        "descripcion": {
+          "type":"string",
+          "example": "Auto partes y refacciones eléctricas"
         }
       }
     },

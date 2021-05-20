@@ -1,9 +1,9 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "Backend ::MSA-API-RESTFULL:: App",
+    "description": "Backend ::msa-api-rest:: App",
     "version": "1.0.0",
-    "title": "Swagger MSA-API-RESTFULL",
+    "title": "Swagger msa-api-rest",
     "contact": {
       "email": "jcanocarballo@gmail.com"
     },
@@ -12,7 +12,7 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host": "https://msa-api-restfull.herokuapp.com",
+  "host": "https://msa-api-rest.herokuapp.com",
   "basePath": "/api",
   "schemes": ["http", "https"],
   "paths": {

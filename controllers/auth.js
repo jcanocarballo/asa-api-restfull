@@ -67,7 +67,14 @@ const crearUsuario = async (req, res = response ) => {
     const salt = bcrypt.genSaltSync();
     usuario.password = bcrypt.hashSync(password, salt);
 
-    await newUsuario(usuario);
+    let rowCount = await newUsuario(usuario);
+    if(!rowCount || rowCount <= 0){
+      logger.info("Error al registrar usuario: " + rowCount);
+      return res.status(500).json({
+        ok: false,
+        msg: 'Por favor hable con el administrador.'
+      })
+    }
 
     // Generar JWT
     const token = await generarJWT( usuario.id, usuario.name, usuario.email );

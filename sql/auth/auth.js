@@ -10,7 +10,11 @@ const findByEmail = async function (email) {
       client = new Client(dbConfig);
       await client.connect();
       let query = "select"
-      + " name, email, password, id"
+      + " id"
+      + " ,name"
+      + " ,email"
+      + " ,password"
+      + " ,enabled"
       + " from usuarios where email = $1";
       let params = [];
       params.push(email);
@@ -32,15 +36,15 @@ const newUsuario = async function (req) {
   try {
       client = new Client(dbConfig);
       await client.connect();
-      let query = "INSERT INTO usuarios (name, email, password) "
-      + " VALUES ($1, $2, $3);";
+      let query = "INSERT INTO usuarios (name, email, password, enabled, created_at) "
+      + " VALUES ($1, $2, $3, true, CURRENT_TIMESTAMP);";
       let params = [];
       json2array(req).map(p => {
         params.push(p);
       })
       logger.info('Query: ' + query);
       let resultado = await client.query(query, params);
-      return resultado;
+      return resultado.rowCount;
   } catch (err) {
       logger.error("Error en Base de datos " + err);
       return null;

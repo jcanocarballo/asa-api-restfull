@@ -22,7 +22,8 @@ const crearCategoria = async ( req, res = response ) => {
   
   let categoria =  req.body ;
   try {
-    categoria.userId = req.id;       
+    // Agregar si se quiere llevar la auditoria de quien crea la categoria.
+    //categoria.userId = req.id;       
     let rowCount = await newCategoria(categoria);
     if(rowCount <= 0){
       return res.status(500).json({

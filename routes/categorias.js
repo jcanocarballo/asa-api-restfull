@@ -21,9 +21,8 @@ router.get('/', getCategorias );
 router.post(
   '/',
   [
-    check('id','El campo es obligatorio y debe ser un numero').isNumeric(),
-    check('nombre_clave_categoria','El campo es obligatorio').not().isEmpty(),
-    check('nombre_completo','El campo es obligatorio').not().isEmpty(),
+    check('clave_categoria','El campo es obligatorio').not().isEmpty(),
+    check('nombre','El campo es obligatorio').not().isEmpty(),
     check('descripcion','El campo es obligatorio').not().isEmpty(),
     validarCampos
   ],
@@ -34,9 +33,8 @@ router.post(
 router.put(
   '/:id', 
   [
-    check('id','El campo es obligatorio y debe ser un numero').isNumeric(),
-    check('nombre_clave_categoria','El campo es obligatorio').not().isEmpty(),
-    check('nombre_completo','El campo es obligatorio').not().isEmpty(),
+    check('clave_categoria','El campo es obligatorio').not().isEmpty(),
+    check('nombre','El campo es obligatorio').not().isEmpty(),
     check('descripcion','El campo es obligatorio').not().isEmpty(),
     validarCampos
   ],

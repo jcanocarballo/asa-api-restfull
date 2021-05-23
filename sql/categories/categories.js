@@ -83,13 +83,13 @@ const findByIdAndUpdate = async function (categoriaId, req) {
 };
 
 const newCategoria = async function (req) {
-  logger.info(`New Categoria: ${req.codigo}`);
+  logger.info(`New Categoria: ${req.clave_categoria}`);
   let client = null;
   try {
       client = new Client(dbConfig);
       await client.connect();
-      let query = "INSERT INTO categorias (ID, NOMBRE_CLAVE_CATEGORIA, NOMBRE_COMPLETO, DESCRIPCION, USER_ID) "
-      + " VALUES ($1, $2, $3, $4, $5);";
+      let query = "INSERT INTO categorias ( CLAVE_CATEGORIA, NOMBRE, DESCRIPCION, created_at, enabled) "
+      + " VALUES ($1, $2, $3, CURRENT_TIMESTAMP, true);";
       let params = [];
       json2array(req).map(p => {
         params.push(p);
@@ -112,7 +112,9 @@ const findByIdAndDelete = async function (categoriaId) {
   try {
       client = new Client(dbConfig);
       await client.connect();
-      let query = "delete from categorias"
+      let query = "update categorias set"
+        + " enabled = false,"
+        + " deleted_at = CURRENT_TIMESTAMP"
       let params = [];
       params.push(categoriaId);
       query +=` where id = $1`;

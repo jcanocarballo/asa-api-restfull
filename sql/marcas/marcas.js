@@ -83,13 +83,13 @@ const findByIdAndUpdate = async function (marcaId, req) {
 };
 
 const newMarca = async function (req) {
-  logger.info(`New marca: ${req.codigo}`);
+  logger.info(`New marca: ${req.clave_marca}`);
   let client = null;
   try {
       client = new Client(dbConfig);
       await client.connect();
-      let query = "INSERT INTO marcas (ID, NOMBRE_CLAVE_MARCA, NOMBRE_COMPLETO, DESCRIPCION, USER_ID) "
-      + " VALUES ($1, $2, $3, $4, $5);";
+      let query = "INSERT INTO marcas ( CLAVE_MARCA, NOMBRE, DESCRIPCION, created_at, enabled) "
+      + " VALUES ($1, $2, $3, CURRENT_TIMESTAMP, true);";
       let params = [];
       json2array(req).map(p => {
         params.push(p);
@@ -112,7 +112,9 @@ const findByIdAndDelete = async function (marcaId) {
   try {
       client = new Client(dbConfig);
       await client.connect();
-      let query = "delete from marcas"
+      let query = "update marcas set"
+      + " enabled = false,"
+      + " deleted_at = CURRENT_TIMESTAMP"
       let params = [];
       params.push(marcaId);
       query +=` where id = $1`;

@@ -1,5 +1,6 @@
 const { response } = require('express');
 const logger = require('../utils/logger');
+const moment = require('moment'); // require
 
 const { listMarcas, newMarca, findById, findByIdAndUpdate, findByIdAndDelete } = require('../sql/marcas/marcas');
 const getMarcas = async( req, res = response ) => {
@@ -22,7 +23,8 @@ const crearMarca = async ( req, res = response ) => {
   
   let marca =  req.body ;
   try {
-    marca.userId = req.id;       
+    //Agregar cuando se guarde con idusuario
+    //marca.userId = req.id;       
     let rowCount = await newMarca(marca);
     if(rowCount <= 0){
       return res.status(500).json({
@@ -59,6 +61,10 @@ const actualizarMarca = async( req, res = response ) => {
     const nuevoMarca = {
       ...req.body
     }
+    delete nuevoMarca.created_at
+    nuevoMarca.updated_at = moment(new Date(), 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+    console.log(nuevoMarca);
+    
     const rowCount = await findByIdAndUpdate( marcaId, nuevoMarca);
     if(rowCount <= 0){
       return res.status(301).json({

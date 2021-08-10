@@ -16,7 +16,7 @@ router.post(
   '/',
   [
     check('email', 'El email es obligatorio').isEmail(),
-    check('password', 'El password debe ser de 6 caracteres').isLength({min: 6}),
+    check('contrasena', 'La contrasena debe ser de min 6 caracteres').isLength({min: 6}),
     validarCampos
   ], 
   loginUsuario);

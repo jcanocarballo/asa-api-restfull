@@ -11,10 +11,10 @@ const findByEmail = async function (email) {
       await client.connect();
       let query = "select"
       + " id"
-      + " ,name"
+      + " ,nombres"
       + " ,email"
-      + " ,password"
-      + " ,enabled"
+      + " ,contrasena"
+      + " ,estado"
       + " from usuarios where email = $1";
       let params = [];
       params.push(email);
